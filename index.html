@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="header container">
+            <div class="row">
+            <div class="col-auto h1">LandscapeHelper</div> 
+            <div class="col">Каталог растений</div>
+            <div class="col">Каталог стилей</div> 
+            <div class="col">Как польоваться сайтом</div>              
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="wrapper">
+            <form id="sendData" action="/cgi-bin/writeDataFromForm.py"></form>  
+            <div class="container firstForm">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Укажите размеры участка</h2>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    
+                    <div class="col-sm-12 col-lg-auto">
+                        <label for="landWidth" class="col-form-label" >Ширина участка(м)</label>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto">
+                        <input type="text" name="landWidth" id="landWidth" placeholder="до 1000м" required class="form-control" form="sendData">
+                    </div>
+                    <div class="col-sm-12 col-lg-auto">
+                        <label for="landLength" class="col-form-label">Длина участка(м)</label>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto">
+                        <input type="text" name="landLength" id="landLength" placeholder="до 1000м" required class="form-control" form="sendData">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <h2>Есть ли на участке постройки и/или деревья?</h2>
+                        <div class="form-group row">
+                            <div class="col"> 
+                                <label class="form-check-label"><input name="emptyPlace" class="form-check-input" type="checkbox" id='emptyCheck'  form="sendData"> Участок пустой</label>
+                            </div>
+                            <div class="col">
+                                <label class="form-check-label"><input name="typeOfPlace" class="form-check-input" type="checkbox" id="woodCheck"  form="sendData">На участке есть деревья</label>
+                            </div>
+                            <div class="col"> 
+                                <label class="form-check-label"><input name="typeOfPlace" class="form-check-input" type="checkbox" id="buildingCheck"  form="sendData">На участке есть постройки</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <button class=" col-4 btn firstForm__btn next">Следующий шаг</button>
+                </div>
+            </div>
+
+
+            <div class="container notEmptyArea">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Отметьте вход, а также постройки/деревья на участке</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 bg-light mb-5 placeForCanva">
+                        <div class="buttonsZone"></div>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <button class=" col-4 btn secondForm__btn float-left back">Назад</button>
+                    <button class=" col-4 btn secondForm__btn float-right next">Следующий шаг</button>
+                </div>
+            </div>
+
+            <div class="container facilities">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Выберите какие зоны вы хотите организовать на своем участке</h2>
+                    </div>
+                </div>
+                <div class='facilitiesScroll'>
+                    <div class="row">
+                        <h4>Постройки хозяйственного назначения</h4><br>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="parking" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="parking">Парковка</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="barn" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="barn">Хозяйственный домик</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="greenhouse" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="greenhouse">Теплица</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="toilet" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="toilet">Уличный туалет</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="compost" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="compost">Компост</label>
+                        </div>  
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="trashbox" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="trashbox">Мусорные баки</label>
+                        </div>                    
+                    </div>
+                    <div class="row">
+                        <h4>Активный отдых</h4><br>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="lawn" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="lawn">Газон для активных игр</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="pool" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="pool">Бассейн</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="playground" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="playground">Детская площадка</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="arbor" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="arbor">Беседка</label>
+                        </div>                   
+                    </div>
+                    <div class="row">
+                        <h4>Готовка</h4><br>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="campfiar" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="campfiar">Зона открытого огня</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="bbq" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="bbq">Барбекю</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="mangal" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="mangal">Мангал</label>
+                        </div>                 
+                    </div>
+                    <div class="row">
+                        <h4>Сад и огород</h4><br>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="gardenBed" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="gardenBed">Грядки</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="fruits" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="fruits">Плодово-ягодные кустарники и деревья</label>
+                        </div>
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="trees" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="trees">Декоративные деревья</label>
+                        </div>   
+                        <div class="btn-group col-auto facilities__btn">
+                            <input type="checkbox" class="btn-check" id="flowerbed" autocomplete="off"  form="sendData">
+                            <label class="btn btn-outline-primary" for="flowerbed">Цветники</label>
+                        </div>              
+                    </div>
+                </div>
+                  
+                <div class="row justify-content-between align-items-end">
+                    <button class=" col-4 btn secondForm__btn  back">Назад</button>
+                    <button class=" col-4 btn secondForm__btn next">Следующий шаг</button>
+                </div>
+            </div>
+
+            <div class="container questions">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Какие чертежи вам понадобятся?</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='facilitiesScroll'>
+                            <div class="btn-group col-auto facilities__btn">
+                                <input type="checkbox" class="btn-check" id="generalplan" autocomplete="off"  form="sendData">
+                                <label class="btn btn-outline-primary" for="generalplan">Генеральный план с экспликацией</label>
+                            </div>
+                            <div class="btn-group col-auto facilities__btn">
+                                <input type="checkbox" class="btn-check" id="scaleplan" autocomplete="off"  form="sendData">
+                                <label class="btn btn-outline-primary" for="scaleplan">Разбивочный чертеж</label>
+                            </div>
+                            <div class="btn-group col-auto facilities__btn">
+                                <input type="checkbox" class="btn-check" id="treeplan" autocomplete="off"  form="sendData">
+                                <label class="btn btn-outline-primary" for="treeplan">Дендроплан</label>
+                            </div>
+                            <div class="btn-group col-auto facilities__btn">
+                                <input type="checkbox" class="btn-check" id="lightplan" autocomplete="off"  form="sendData">
+                                <label class="btn btn-outline-primary" for="lightplan">План освещения</label>
+                            </div>
+                            <div class="btn-group col-auto facilities__btn">
+                                <input type="checkbox" class="btn-check" id="waterplan" autocomplete="off"  form="sendData">
+                                <label class="btn btn-outline-primary" for="waterplan">План полива</label>
+                            </div>                  
+                    </div>
+
+                </div> 
+                <div class="row justify-content-between align-items-end">
+                    <button class=" col-4 btn secondForm__btn  back">Назад</button>
+                    <button class=" col-4 btn secondForm__btn next" type="submit" form="sendData">Рассчитать</button>
+                </div>
+            </div>          
+        </div>
+
+
+    </main>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

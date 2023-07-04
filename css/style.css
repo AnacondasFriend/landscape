@@ -1,0 +1,46 @@
+:root{
+    --color1:rgba(58, 209, 58, 0.582);
+    --color2:rgb(216, 196, 82);
+
+}
+body{
+   overflow-y: hidden;
+}
+header{
+    background-color: var(--color1);
+    position: sticky;
+}
+
+.wrapper{
+    
+    position: relative;
+}
+.firstForm, .notEmptyArea, .questions, .facilities{
+    height: 100vh;
+}
+
+.firstForm h2{
+    margin: 3% 0;
+}
+
+.next, .back{
+    background-color: var(--color2);
+}
+
+.next:hover, .back:hover{
+    background-color: var(--color1);
+}
+
+.placeForCanva{
+    padding: 0;
+    height: 400px;
+    background-color: var(--color1);
+    overflow-y: auto;
+}
+.facilitiesScroll{
+    height:400px;
+    overflow-y: auto;
+}
+.facilities__btn{
+    margin-bottom: 5px;
+}
