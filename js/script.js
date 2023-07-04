@@ -4,6 +4,8 @@ const firstbtn = document.querySelectorAll('.firstForm__btn');
 let wrapper = document.querySelector('.wrapper');
 let notEmptyArea = document.querySelector('.notEmptyArea');
 let placeForCanva = document.querySelector('.placeForCanva');
+const canvaWidth = placeForCanva.getBoundingClientRect().width;
+const canvaHeight = placeForCanva.getBoundingClientRect().height;
 
 let emptyCheck = document.getElementById('emptyCheck');
 let woodCheck = document.getElementById('woodCheck');
@@ -14,25 +16,38 @@ const landLength = document.querySelector('#landLength');
 
 let activeSlideIndex = 0;
 
+function sidesCompare(width, height){
+    if(canvaHeight <= canvaWidth && height <= width){
+        return [width,height]; //без изменений
+    }
+    else if(canvaHeight >= canvaWidth && height >= width){
+        return [width,height]; //без изменений
+    }
+    else if(canvaHeight<canvaWidth && height>width){
+        return [height,width]; //длина будет откладываться по ширине
+    }
+    else if(canvaHeight > canvaWidth && height < width){
+        return [height,width]; //ширина будет откладываться по длине
+    }
+}
 function whichButton(slideNum){
     if(slideNum==0){
-        areaWidth = landWidth.value;
+        areaWidth = landWidth.value; //это то шо в метрах
         areaLength = landLength.value;
         if(areaWidth==0 || areaLength==0|| areaWidth==''|| areaLength==''||(!emptyCheck.checked && !woodCheck.checked && !buildingCheck.checked )){
             alert('Введите корректные значения');
             return false;
         }
         else{
-            canvaWidth = placeForCanva.getBoundingClientRect().width;
-            canvaHeight = placeForCanva.getBoundingClientRect().height;            
+            [areaWidth, areaLength]= sidesCompare(Number(areaWidth), Number(areaLength));    
             dif = canvaWidth/areaWidth;
-            areaWidth *= dif;
+            areaWidth *= dif; //это получается уже в пикселях
             areaLength *= dif;
-            console.log(areaWidth,areaLength)
-            if(areaLength > canvaHeight){
-                dif2 = areaLength-canvaHeight;
-                console.log(dif2)
-                areaWidth -= dif2;
+            console.log(areaWidth, areaLength)
+            if(areaLength > canvaHeight){ //выравниваем по длине
+                dif2 = canvaHeight/areaLength; 
+                console.log(dif2);
+                areaWidth *= dif2;
                 areaLength = canvaHeight;
             }
             console.log(areaWidth, areaLength)
