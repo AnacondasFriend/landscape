@@ -37,6 +37,13 @@ header{
     background-color: var(--color1);
     overflow-y: auto;
 }
+.buttonsZone__btn{
+    display: inline-block;
+}
+.buttonsZone__btn img{
+    width: 30px;
+    height: 30px;
+}
 .facilitiesScroll{
     height:400px;
     overflow-y: auto;
