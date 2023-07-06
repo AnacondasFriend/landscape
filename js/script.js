@@ -173,7 +173,7 @@ for(button of nextButtons){
         height = button.parentNode.parentNode.offsetHeight;
         if(whichButton(activeSlideIndex)){
         activeSlideIndex++;    
-        wrapper.style.top = `${-height*activeSlideIndex}px`;             
+        wrapper.style.transform = `translateY(-${height*activeSlideIndex}px)`;             
         }        
  })
 }
@@ -182,6 +182,6 @@ for(button of backButtons){
     button.addEventListener('click', ()=>{
         height = button.parentNode.parentNode.offsetHeight;
         activeSlideIndex--;
-        wrapper.style.top = `${-height*activeSlideIndex}px`;
+        wrapper.style.transform = `translateY(-${height*activeSlideIndex}px)`;
     });
 }
