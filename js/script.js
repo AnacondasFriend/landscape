@@ -8,6 +8,9 @@ let placeForCanva = document.querySelector('.placeForCanva');
 let gridChecks = document.querySelectorAll('.buttonsZone__btn')
 const canvaWidth = placeForCanva.getBoundingClientRect().width;
 const canvaHeight = placeForCanva.getBoundingClientRect().height;
+let grid1 = document.getElementById('grid1');
+let grid10 = document.getElementById('grid10');
+let grid100 = document.getElementById('grid100');
 
 let emptyCheck = document.getElementById('emptyCheck');
 let woodCheck = document.getElementById('woodCheck');
@@ -18,28 +21,30 @@ const landLength = document.querySelector('#landLength');
 
 let activeSlideIndex = 0;
 let oneMeter;
+let aW;
+let aL;
 
 
 function createGrids(h, width, height){
     let stepsByWidth = Math.round(width/h);
+    console.log(stepsByWidth)
     let stepsByHeight = Math.round(height/h);
-    //console.log(width, height)
-    //console.log(stepsByWidth, stepsByHeight)
-    //console.log(oneMeter)
     let resultString = '';
     for(let i=1; i<stepsByWidth; i++){
-       // console.log(i)
-        step = i*oneMeter;
+        step = i*oneMeter*h;
         resultString += `<line x1="${step}" y1="0" x2="${step}" y2="${height*oneMeter}" style="stroke:rgb(255,0,0);stroke-width:2"/>`
     }
     for(let i=1; i<stepsByHeight; i++){
-        step = i*oneMeter;
+        step = i*oneMeter*h;
         resultString += `<line x1="0" y1="${step}" x2="${width*oneMeter}" y2="${step}" style="stroke:rgb(255,0,0);stroke-width:2"/>`
     }
-    //console.log(resultString)
     return resultString;
 }
 
+function removeGrids(){
+    let lines = placeForCanva.querySelectorAll('line');
+    lines.forEach((elem)=>elem.remove())
+}
 
 function sidesCompare(width, height){
     if(canvaHeight <= canvaWidth && height <= width){
@@ -66,28 +71,21 @@ function whichButton(slideNum){
             return false;
         }
         else{
-            console.log('before',areaWidth, areaLength);
             [areaWidth, areaLength]= sidesCompare(Number(areaWidth), Number(areaLength));
             aL = areaLength;
-            aW = areaWidth;
-            console.log('after', areaWidth, areaLength);    
+            aW = areaWidth;  
             dif = canvaWidth/areaWidth;
             areaWidth *= dif; //это получается уже в пикселях
             areaLength *= dif;
-            console.log('dif', areaWidth, areaLength);
             if(areaLength > canvaHeight){ //выравниваем по длине
                 dif2 = canvaHeight/areaLength; 
-                console.log(dif2);
                 areaWidth *= dif2;
                 areaLength = canvaHeight;
-                console.log('dif2', areaWidth, areaLength);
             }
             oneMeter = areaWidth / aW;
-            oneMeter2 = areaLength / aL;
-            console.log(oneMeter, oneMeter2)
             h=1;
             gridLines = createGrids(h, aW, aL)
-            placeForCanva.insertAdjacentHTML('afterbegin', `<svg width='${areaWidth}px' height='${areaLength}px'> <rect width='${areaWidth}px' height='${areaLength}px' style="fill:#71f37194; stroke-width:2; stroke:black"/>${gridLines}</svg>`)
+            placeForCanva.insertAdjacentHTML('afterbegin', `<svg width='${areaWidth}px' height='${areaLength}px' class='svgArea'> <rect width='${areaWidth}px' height='${areaLength}px' style="fill:#71f37194; stroke-width:2; stroke:black"/>${gridLines}</svg>`)
             return true;
         }
     }
@@ -130,6 +128,45 @@ buildingCheck.addEventListener('change', (e)=>{
     }
 })
 
+grid1.addEventListener('change', (e)=>{
+    if(e.target.checked){
+        removeGrids();
+        grid10.checked = false;
+        grid100.checked = false;
+        res = createGrids(1, aW, aL);
+        svgArea = document.querySelector('.svgArea');
+        svgArea.insertAdjacentHTML('beforeend', res);
+    }
+    else{
+        removeGrids()
+    }
+})
+grid10.addEventListener('change', (e)=>{
+    if(e.target.checked){
+        removeGrids();
+        grid1.checked = false;
+        grid100.checked = false;
+        res = createGrids(10, aW, aL);
+        svgArea = document.querySelector('.svgArea');
+        svgArea.insertAdjacentHTML('beforeend', res);
+    }
+    else{
+        removeGrids()
+    }
+})
+grid100.addEventListener('change', (e)=>{
+    if(e.target.checked){
+        removeGrids();
+        grid1.checked = false;
+        grid10.checked = false;
+        res = createGrids(100, aW, aL);
+        svgArea = document.querySelector('.svgArea');
+        svgArea.insertAdjacentHTML('beforeend', res);
+    }
+    else{
+        removeGrids()
+    }
+})
 
 for(button of nextButtons){
     button.addEventListener('click', ()=>{ 
