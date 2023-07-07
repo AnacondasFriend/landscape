@@ -5,12 +5,17 @@ const firstbtn = document.querySelectorAll('.firstForm__btn');
 let wrapper = document.querySelector('.wrapper');
 let notEmptyArea = document.querySelector('.notEmptyArea');
 let placeForCanva = document.querySelector('.placeForCanva');
-let gridChecks = document.querySelectorAll('.buttonsZone__btn')
 const canvaWidth = placeForCanva.getBoundingClientRect().width;
 const canvaHeight = placeForCanva.getBoundingClientRect().height;
 let grid1 = document.getElementById('grid1');
 let grid10 = document.getElementById('grid10');
 let grid100 = document.getElementById('grid100');
+const addBuilding = document.querySelector('.addBuilding');
+const deleteBuilding = document.querySelector('.deleteBuilding');
+const addTree = document.querySelector('.addTree');
+const deleteTree = document.querySelector('.deleteTree');
+const addMark = document.querySelector('.addMark');
+const deleteMark = document.querySelector('.deleteMark');
 
 let emptyCheck = document.getElementById('emptyCheck');
 let woodCheck = document.getElementById('woodCheck');
@@ -61,6 +66,17 @@ function sidesCompare(width, height){
     }
 }
 
+function svgProcesing(){
+    svgArea = document.querySelector('.svgArea');
+    svgArea.addEventListener('click', (e)=>{
+        nullPoint = document.querySelector('.nullPoint');
+        nullPoint.remove();
+        console.log(e.clientX-svgArea.getBoundingClientRect().x, e.clientY-svgArea.getBoundingClientRect().y);
+        //console.log(svgArea.getBoundingClientRect().x,svgArea.getBoundingClientRect().y)
+        svgArea.insertAdjacentHTML('beforeend', `<circle cx='${e.clientX-svgArea.getBoundingClientRect().x}' cy='${e.clientY-svgArea.getBoundingClientRect().y}' r="5" stroke="black" stroke-width="3" fill="red" class='nullPoint'/>`);     
+    })
+
+}
 
 function whichButton(slideNum){
     if(slideNum==0){
@@ -85,7 +101,8 @@ function whichButton(slideNum){
             oneMeter = areaWidth / aW;
             h=1;
             gridLines = createGrids(h, aW, aL)
-            placeForCanva.insertAdjacentHTML('afterbegin', `<svg width='${areaWidth}px' height='${areaLength}px' class='svgArea'> <rect width='${areaWidth}px' height='${areaLength}px' style="fill:#71f37194; stroke-width:2; stroke:black"/>${gridLines}</svg>`)
+            placeForCanva.insertAdjacentHTML('afterbegin', `<svg width='${areaWidth}px' height='${areaLength}px' class='svgArea'> <rect width='${areaWidth}px' height='${areaLength}px' style="fill:#71f37194; stroke-width:2; stroke:black"/>${gridLines} <circle r="5" stroke="black" stroke-width="3" fill="red" class='nullPoint'/></svg>`);
+            svgProcesing();
             return true;
         }
     }
