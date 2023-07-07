@@ -65,17 +65,46 @@ function sidesCompare(width, height){
         return [height,width]; //ширина будет откладываться по длине
     }
 }
+function createBuilding(){
+    svgArea = document.querySelector('.svgArea');
+    svgArea.addEventListener('mousedown', (e)=>{
+        startX = e.clientX-svgArea.getBoundingClientRect().x;
+        resX = startX;
+        startY =e.clientY-svgArea.getBoundingClientRect().y;
+        resY = startY;
+        console.log(e.clientX-svgArea.getBoundingClientRect().x, e.clientY-svgArea.getBoundingClientRect().y);   
+    })
+    svgArea.addEventListener('mouseup', (e)=>{
+        endX = e.clientX-svgArea.getBoundingClientRect().x; 
+        endY =e.clientY-svgArea.getBoundingClientRect().y
+        console.log(e.clientX-svgArea.getBoundingClientRect().x, e.clientY-svgArea.getBoundingClientRect().y);
+        width = endX-startX;
+        height = endY-startY;
+        console.log(startY)
+        if(startX>endX){
+            resX=endX;
+            width = startX-endX;
+        }
+        
+        if(startY>endY){
+            resY=endY;
+            height = startY-endY;
+        }
 
+        console.log(`<rect x="${resX}" y="${resY}" width="${width}" height="${height}"`)
+    svgArea.insertAdjacentHTML('beforeend',`<rect x="${resX}" y="${resY}" width="${width}" height="${height}" style="fill:rgb(216, 196, 82); stroke-width:2; stroke:black" />`);   
+    })
+    
+}
 function svgProcesing(){
     svgArea = document.querySelector('.svgArea');
     svgArea.addEventListener('click', (e)=>{
         nullPoint = document.querySelector('.nullPoint');
         nullPoint.remove();
-        console.log(e.clientX-svgArea.getBoundingClientRect().x, e.clientY-svgArea.getBoundingClientRect().y);
+        //console.log(e.clientX-svgArea.getBoundingClientRect().x, e.clientY-svgArea.getBoundingClientRect().y);
         //console.log(svgArea.getBoundingClientRect().x,svgArea.getBoundingClientRect().y)
         svgArea.insertAdjacentHTML('beforeend', `<circle cx='${e.clientX-svgArea.getBoundingClientRect().x}' cy='${e.clientY-svgArea.getBoundingClientRect().y}' r="5" stroke="black" stroke-width="3" fill="red" class='nullPoint'/>`);     
     })
-
 }
 
 function whichButton(slideNum){
@@ -145,6 +174,7 @@ buildingCheck.addEventListener('change', (e)=>{
     }
 })
 
+addBuilding.addEventListener('click', createBuilding)
 grid1.addEventListener('change', (e)=>{
     if(e.target.checked){
         removeGrids();
